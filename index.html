@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Demo Webpage</title>
+    <style>
+        /* CSS Variables for Easy Theme Toggling */
+        :root {
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --header-bg: #2c3e50;
+            --header-text: #ffffff;
+            --accent-color: #3498db;
+            --accent-hover: #2980b9;
+            --sidebar-bg: #e2e8f0;
+            --border-color: #dddddd;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a2e;
+            --card-bg: #161625;
+            --text-color: #e0e0e0;
+            --header-bg: #0f0f1a;
+            --header-text: #ffffff;
+            --accent-color: #e94560;
+            --accent-hover: #ff6b81;
+            --sidebar-bg: #0f0f1a;
+            --border-color: #333333;
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Header & Theme Toggle */
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theme-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* Layout Layout */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            gap: 20px;
+        }
+
+        main {
+            flex: 3;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        aside {
+            flex: 1;
+            background: var(--sidebar-bg);
+            padding: 20px;
+            border-radius: 8px;
+            height: fit-content;
+        }
+
+        h1, h2 {
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* Interactive Tabs Styling */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Interactive Counter Styling */
+        .counter-box {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .counter-val {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            header { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header with Live Theme Switcher -->
+    <header>
+        <h2>Interactive Webpage</h2>
+        <button class="theme-btn" id="themeToggle">Toggle Dark Mode</button>
+    </header>
+
+    <div class="container">
+        
+        <!-- Main Component Navigation Structure -->
+        <main>
+            <!-- Tab Buttons -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab1')">Tab 1</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab2')">Tab 2</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab3')">Tab 3</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div id="tab1" class="tab-content active">
+                <h1>Welcome to Tab One</h1>
+                <p>This layout changes content dynamically without reloading the page using JavaScript.</p>
+            </div>
+
+            <div id="tab2" class="tab-content">
+                <h1>Tab Two Features</h1>
+                <p>You clicked the second tab! JavaScript hides the inactive tabs and displays the active container instantly.</p>
+            </div>
+
+            <div id="tab3" class="tab-content">
+                <h1>Alert Box Demo</h1>
+                <p>Click the button below to trigger a dynamic browser notification action.</p>
+                <button class="btn" onclick="alert('Hello! Thanks for testing the interactivity.')">Trigger Alert</button>
+            </div>
+        </main>
+
+        <!-- Sidebar with Interactive Click Counter -->
+        <aside>
+            <h2>Live Counter</h2>
+            <p>Test real-time state changes using the buttons below.</p>
+            <div class="counter-box">
+                <span class="counter-val" id="counterDisplay">0</span>
+                <button class="btn" onclick="changeCounter(-1)">- Decrement</button>
+                <button class="btn" onclick="changeCounter(1)">+ Increment</button>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Interactive Web System.</p>
+    </footer>
+
+    <!-- Interactive JavaScript Engine -->
+    <script>
+        // 1. Dark/Light Theme Switcher Logic
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeToggle.textContent = 'Toggle Dark Mode';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = 'Toggle Light Mode';
+            }
+        });
+
+        // 2. Tab Navigation Switcher Logic
+        function switchTab(event, tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active status from all tab buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab content and highlight the button
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // 3. Counter Mechanics Logic
+        let count = 0;
+        const counterDisplay = document.getElementById('counterDisplay');
+
+        function changeCounter(amount) {
+            count += amount;
+            counterDisplay.textContent = count;
+        }
+    </script>
+</body>
+</html>
